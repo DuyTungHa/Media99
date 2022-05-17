@@ -3,21 +3,21 @@
   become: yes
   vars_files: secret.yml
   tasks:
-   - name: apt-update
-     apt:
+   - name: yum-update
+     yum:
       update_cache: yes   
    - name: Install Docker
-     apt:
+     yum:
       name: docker.io
       state: present
    - name: Create new directory
-     become_user: ubuntu
+     become_user: centos
      file:
-      path: /home/ubuntu/target
+      path: /home/centos/target
       state: directory
    - name: Copy the source code to hosts
-     copy: src=./{{ item }} dest=/home/ubuntu/target/
-     become_user: ubuntu
+     copy: src=./{{ item }} dest=/home/centos/target/
+     become_user: centos
      with_items:
         - app
         - migrations
@@ -28,8 +28,8 @@
         - Dockerfile
         - requirements
    - name: Set the executable permission
-     command: chmod +x /home/ubuntu/target/boot.sh  
+     command: chmod +x /home/centos/target/boot.sh  
    - name: Build Docker Image
-     command: chdir=/home/ubuntu/target/ docker build . -t mediaapp
+     command: chdir=/home/centos/target/ docker build . -t mediaapp
    - name: Run Docker Container
-     command: chdir=/home/ubuntu/target/ docker run -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 mediaapp
+     command: chdir=/home/centos/target/ docker run -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 mediaapp
