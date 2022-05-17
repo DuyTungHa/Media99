@@ -54,4 +54,4 @@
    - name: Remove docker container
      command: docker system prune -f
    - name: Run Docker Container
-     command: chdir=/home/centos/target/ docker run --name=mediaapp_container -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 mediaapp
+     command: chdir=/home/centos/target/ docker run --name=mediaapp_container -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 80:5000 mediaapp
