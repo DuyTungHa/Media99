@@ -49,14 +49,7 @@
      command: chmod +x /home/centos/target/boot.sh  
    - name: Build Docker Image
      command: chdir=/home/centos/target/ docker build . -t mediaapp
-   - name: Get running containers
-     docker_host_info:
-       containers: yes
-     register: docker_info
-   - name: Stop running containers
-     docker_container:
-       name: "{{ item }}"
-       state: stopped
-     loop: "{{ docker_info.containers | map(attribute='Id') | list }}"
+   - name: Stop and remove docker container
+     command: "docker stop mediaapp && docker rm mediaapp"
    - name: Run Docker Container
      command: chdir=/home/centos/target/ docker run -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 mediaapp
