@@ -50,6 +50,6 @@
    - name: Build Docker Image
      command: chdir=/home/centos/target/ docker build . -t mediaapp
    - name: Stop and remove docker container
-     command: docker stop $(docker ps -aq)
+     command: docker stop mediaapp_container && docker remove mediaapp_container
    - name: Run Docker Container
-     command: chdir=/home/centos/target/ docker run -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 mediaapp
+     command: chdir=/home/centos/target/ docker run --name=mediaaapp_container -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 mediaapp
