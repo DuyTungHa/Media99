@@ -8,7 +8,7 @@ pipeline{
 				]]
 			]
 			steps {
-				withVault() {
+				withVault([vaultSecrets: secrets]) {
 					sh 'echo $SECRET_KEY'
 				}
 			}
