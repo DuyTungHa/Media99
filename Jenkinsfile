@@ -2,15 +2,17 @@ pipeline{
 	agent{label 'master'}
 	stages{
 		stage('test vault'){
-			script {
-				def secrets = [
-					[path: 'secret/another_test', engineVersion: 2, secretValues: [
-					    [vaultKey: 'SECRET_KEY']
-					]]
-				]
-			}
-			withVault([vaultSecrets: secrets]) {
-				sh 'echo $SECRET_KEY'
+			steps{
+				script {
+					def secrets = [
+						[path: 'secret/another_test', engineVersion: 2, secretValues: [
+						    [vaultKey: 'SECRET_KEY']
+						]]
+					]
+				}
+				withVault([vaultSecrets: secrets]) {
+					sh 'echo $SECRET_KEY'
+				}
 			}
 		}
 		stage('Checkout'){
