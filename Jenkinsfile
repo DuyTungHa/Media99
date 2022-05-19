@@ -10,7 +10,9 @@ pipeline{
 						]]
 					]
 					withVault([vaultSecrets: secrets]) {
-						sh 'echo $SECRET_KEY'
+						writeFile file: 'secrets.txt', text: $SECRET_KEY
+						sh 'ls -l secrets.txt'
+    						sh 'cat secrets.txt'
 					}
 				}
 			}
