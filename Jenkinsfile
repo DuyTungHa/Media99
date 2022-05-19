@@ -5,7 +5,7 @@ pipeline{
 			steps{
 				script {
 					def secrets = [
-						[path: 'secret/another_test', engineVersion: 2, secretValues: [
+						[path: 'kv/media99', engineVersion: 2, secretValues: [
 						    [vaultKey: 'SECRET_KEY']
 						]]
 					]
