@@ -2,6 +2,11 @@ pipeline{
 	agent{label 'master'}
 	stages{
 		stage('test vault'){
+			def secrets = [
+				[path: 'secret/another_test', engineVersion: 2, secretValues: [
+				    [vaultKey: 'SECRET_KEY']
+				]]
+			]
 			steps {
 				withVault() {
 					sh 'echo $SECRET_KEY'
