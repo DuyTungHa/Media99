@@ -9,9 +9,9 @@ pipeline{
 						    [vaultKey: 'SECRET_KEY']
 						]]
 					]
-				}
-				withVault([vaultSecrets: secrets]) {
-					sh 'echo $SECRET_KEY'
+					withVault([vaultSecrets: secrets]) {
+						sh 'echo $SECRET_KEY'
+					}
 				}
 			}
 		}
